@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+<div style="float: left"><a th:href="@{/admin/registerAdd/{sid}(sid=${std.id})}">Register New Course</a></div>
+<div style="float: right"><a th:href="@{/admin/studentList}">Student List</a>&nbsp;&nbsp;
+<a th:href="@{/admin/courseList}">Course List</a></div>
+</div>
+<br>
+<div>
+<h4 th:text="'Courses of '+ ${std.name}"></h4>
+</div>
+<div th:if="${param.msg == 'ok'}"><p th:text="#{msg.success}"></p></div>
+<div>
+  <table border="1" width="100%" class="table table-hover">
+    <thead>
+    <tr>
+      <td>Index</td>
+      <td>Name</td>
+      <td>Term</td>
+      <td>Grade</td>
+      <td>Unit</td>
+      <td>Delete</td>
+    </tr>
+    </thead>
+    <tbody >
+    <tr th:each="reg, iter:${reglist}">
+      <td th:text="${iter.index+1}"></td>
+      <td th:text="${reg.courseEntity.name}"></td>
+      <td th:text="${reg.term}"></td>
+      <td th:text="${reg.grade}"></td>
+      <td th:text="${reg.courseEntity.unit}"></td>
+      <td><a th:href="@{/admin/registerDelete/{sid}-{cid}-{term}(sid=${reg.sid},cid=${reg.cid},term=${reg.term})}">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

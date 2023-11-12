@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div>
+<div style="float: left"><a href="studentAdd">Add New Student</a></div>
+    <div style="float: right"><a href="courseList">Course Lists</a></div>
+</div>
+<div align="center" th:if="${param.msg != null && param.msg[0] == 'ok'}"><br><p th:text="#{msg.success}"></p><br></div>
+<div align="center" th:if="${param.msg != null && param.msg[0] == 'nok'}"><br><p th:text="#{msg.notsuccess}"></p><br></div>
+<div>
+    <table border="1" width="100%" class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Birth Date</td>
+            <td>Show Courses</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="std:${list}">
+            <td th:text="${std.id}"></td>
+            <td th:text="${std.name}"></td>
+            <td th:text="${#dates.format(std.birthDate, 'yyyy/MM/dd')}"></td>
+            <td><a th:href="@{showCourseList/{sid}(sid=${std.id})}">Courses</a></td>
+            <td><a th:href="@{studentEdit/{id}(id=${std.id})}">Edit</a></td>
+            <td><a th:href="@{studentDelete/{id}(id=${std.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
